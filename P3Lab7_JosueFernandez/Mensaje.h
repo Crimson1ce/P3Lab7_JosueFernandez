@@ -22,6 +22,12 @@ public:
     virtual ~Mensaje();
     //Constructor con parámetros
     Mensaje(string emisor, string mensajeEncriptado);
+    
+    //Getter del emisor
+    string getEmisor();
+    //Getter del mensaje
+    string getMensajeEncriptado();
+    
 private:
     string emisor;
     string mensajeEncriptado;

@@ -22,3 +22,12 @@ Mensaje::Mensaje(const Mensaje& orig) {
 Mensaje::~Mensaje() {
 }
 
+//Getter del emisor
+string Mensaje::getEmisor(){
+    return emisor;
+}
+
+//Getter del mensaje
+string Mensaje::getMensajeEncriptado(){
+    return mensajeEncriptado;
+}

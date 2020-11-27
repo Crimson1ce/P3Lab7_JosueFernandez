@@ -24,12 +24,30 @@ public:
     virtual ~Persona();
     //Constructor con atributos
     Persona(string nombre, string apellido, string password);
+    //Metodo para recibir mensajes
+    void recibirMensaje(string emisor, string msj);
+    //Getter de los mensajes recibidos
+    Mensaje& getMensajeRecibido(int mensaje);
+    //Getter del nombre
+    string getNombre();
+    //Getter del apellido
+    string getApellido();
+    //Getter de la contraseña
+    string getPassword();
+    //Getter de la llave
+    int getLlave();
+    //Getter de la cantidad de mensajes
+    int getCantidadMensajes();
+    //Metodo que imprime los mensajes recibidos
+    void imprimirMensajes();
+    
 private:
     string nombre;
     string apellido;
     string password;
     int llave;
     vector<Mensaje> mensajesRecibidos;
+    int cantidadMensajes;
 
 };
 
