@@ -6,6 +6,8 @@
  */
 
 #include "Persona.h"
+#include "Mensaje.h"
+
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -45,7 +47,7 @@ Persona::Persona(string nombre, string apellido, string password)
  */
 void Persona::recibirMensaje(string emisor, string msj) {
     //Se recibe el mensaje ya encriptado
-    Mensaje mensaje = Mensaje(emisor, msj);
+    Mensaje mensaje(emisor, msj);
     mensajesRecibidos.push_back(mensaje);
     cantidadMensajes++;
 }
@@ -55,7 +57,7 @@ void Persona::recibirMensaje(string emisor, string msj) {
 Mensaje* Persona::getMensajeRecibido(int mensaje){
     if(mensaje<1 || mensaje>cantidadMensajes)
         return NULL;
-    return mensajesRecibidos.at(mensaje-1);
+    return &(mensajesRecibidos.at(mensaje-1));
 }
 
 /*Getter del nombre

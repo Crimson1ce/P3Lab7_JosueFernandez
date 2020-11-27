@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <vector>
 #include "Mensaje.h"
 
 #ifndef PERSONA_H
@@ -27,7 +28,7 @@ public:
     //Metodo para recibir mensajes
     void recibirMensaje(string emisor, string msj);
     //Getter de los mensajes recibidos
-    Mensaje& getMensajeRecibido(int mensaje);
+    Mensaje* getMensajeRecibido(int mensaje);
     //Getter del nombre
     string getNombre();
     //Getter del apellido
@@ -42,10 +43,10 @@ public:
     void imprimirMensajes();
     
 private:
+    int llave;
     string nombre;
     string apellido;
     string password;
-    int llave;
     vector<Mensaje> mensajesRecibidos;
     int cantidadMensajes;
 

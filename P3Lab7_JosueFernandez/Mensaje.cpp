@@ -11,6 +11,7 @@
  * Created on 27 de noviembre de 2020, 01:40 PM
  */
 
+#include "Persona.h"
 #include "Mensaje.h"
 
 Mensaje::Mensaje() {
@@ -22,12 +23,20 @@ Mensaje::Mensaje(const Mensaje& orig) {
 Mensaje::~Mensaje() {
 }
 
-//Getter del emisor
-string Mensaje::getEmisor(){
+/*Constructor con parámetros
+ */
+Mensaje::Mensaje(string emisor, string mensajeEncriptado)
+: emisor(emisor), mensajeEncriptado(mensajeEncriptado) {
+}
+
+/*Getter del emisor
+ */
+string Mensaje::getEmisor() {
     return emisor;
 }
 
-//Getter del mensaje
-string Mensaje::getMensajeEncriptado(){
+/*Getter del mensaje
+ */
+string Mensaje::getMensajeEncriptado() {
     return mensajeEncriptado;
 }
