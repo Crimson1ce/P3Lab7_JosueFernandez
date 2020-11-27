@@ -255,6 +255,28 @@ void ingreso() {
                 cout << "### VER MENSAJES ###\n\n";
                 
                 personaActual->imprimirMensajes();
+                if(personaActual->getCantidadMensajes() == 0){
+                    cout << "No ha recibido ningun mensaje.\n";
+                    break;
+                }
+                int numMensaje;
+                cout << "\nIngrese el mensaje que desea ver: ";
+                cin >> numMensaje;
+                
+                while(numMensaje < 1 || numMensaje > personaActual->getCantidadMensajes()){
+                    cout << "Ingrese un numero de mensaje valido: ";
+                    cin >> numMensaje;
+                }
+                
+                Mensaje* message = personaActual->getMensajeRecibido(numMensaje);
+                
+                if(message == NULL){
+                    break;
+                }
+                
+                cout << "[TEXT]: " << encriptado(message->getMensajeEncriptado(),personaActual->getLlave(),false) << "\n";
+                
+                message = NULL;
                 
                 break;
             }
@@ -262,7 +284,7 @@ void ingreso() {
             {
                 cout << "### VER MI LLAVE ###\n\n";
                 cout << personaActual->getNombre() << ", tu llave es ";
-                cout << receptorActual->getLlave() << ".\n";
+                cout << personaActual->getLlave() << ".\n";
                 break;
             }
             case 0:
