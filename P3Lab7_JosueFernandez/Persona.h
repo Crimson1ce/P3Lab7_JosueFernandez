@@ -23,6 +23,7 @@ public:
     Persona(const Persona& orig);
     //Destructor
     virtual ~Persona();
+    
     //Constructor con atributos
     Persona(string nombre, string apellido, string password);
     //Metodo para recibir mensajes
