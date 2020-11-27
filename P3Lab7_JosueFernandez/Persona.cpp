@@ -27,6 +27,9 @@ Persona::Persona()
 /*Constructor de copia
  */
 Persona::Persona(const Persona& orig) {
+    for (int i = 0; i < cantidadMensajes; i++) {
+        delete mensajesRecibidos.at(i);
+    }
 
 }
 
@@ -47,7 +50,7 @@ Persona::Persona(string nombre, string apellido, string password)
  */
 void Persona::recibirMensaje(string emisor, string msj) {
     //Se recibe el mensaje ya encriptado
-    Mensaje mensaje(emisor, msj);
+    Mensaje* mensaje = new Mensaje(emisor, msj);
     mensajesRecibidos.push_back(mensaje);
     cantidadMensajes++;
 }
@@ -57,7 +60,7 @@ void Persona::recibirMensaje(string emisor, string msj) {
 Mensaje* Persona::getMensajeRecibido(int mensaje){
     if(mensaje<1 || mensaje>cantidadMensajes)
         return NULL;
-    return &(mensajesRecibidos.at(mensaje-1));
+    return mensajesRecibidos.at(mensaje-1);
 }
 
 /*Getter del nombre
@@ -95,6 +98,6 @@ int Persona::getCantidadMensajes(){
 void Persona::imprimirMensajes(){
     cout << "\t~~~ Ver Mensajes ~~~\n" << endl;
     for (int i = 0; i < cantidadMensajes; i++) {
-        cout << "\t" << (i+1) << ". De: " << ((Mensaje)mensajesRecibidos[i]).getEmisor() << " -> " << ((Mensaje)mensajesRecibidos[i]).getMensajeEncriptado() << endl;
+        cout << "\t" << (i+1) << ". De: " << ((Mensaje*)mensajesRecibidos[i])->getEmisor() << " -> " << ((Mensaje*)mensajesRecibidos[i])->getMensajeEncriptado() << endl;
     }
 }

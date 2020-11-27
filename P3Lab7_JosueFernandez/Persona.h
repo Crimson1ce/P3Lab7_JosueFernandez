@@ -48,7 +48,7 @@ private:
     string nombre;
     string apellido;
     string password;
-    vector<Mensaje> mensajesRecibidos;
+    vector<Mensaje*> mensajesRecibidos;
     int cantidadMensajes;
 
 };

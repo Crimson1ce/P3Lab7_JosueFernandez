@@ -23,6 +23,7 @@ using std::vector;
 
 //using namespace std;
 
+Persona* receptorActual = NULL;
 Persona* personaActual = NULL;
 int indiceActual = -1;
 Mensaje* mensajeActual = NULL;
@@ -44,10 +45,18 @@ int menuIngreso();
  */
 void ingreso();
 
+/* Encripta una cadena de acuerdo a una llave
+ */
+string encriptado(string mensaje, int llave, bool codificar);
+
 int main(int argc, char** argv) {
 
     int opcion = -1;
 
+    
+//    string en = encriptado("adios",15,true);
+//    cout << "adios -> " << en << " -> " << encriptado(en,15,false);
+    
     string nombre = "", apellido = "", password = "";
 
     //    cout << "Nombre: "; cin >> nombre;
@@ -108,7 +117,7 @@ int main(int argc, char** argv) {
 
                 cout << "\nIngrese su nombre: ";
                 cin >> nombre;
-                cout << "\nIngrese su contrasena: ";
+                cout << "Ingrese su contrasena: ";
                 cin >> password;
 
                 bool coinciden = false;
@@ -196,8 +205,9 @@ void ingreso() {
             {
                 cout << "### ENVIAR MENSAJE ###\n\n";
 
-                if (cantidadRegistrados > 1) {
+                if (cantidadRegistrados < 2) {
                     cout << "-> No hay otro usuario al que enviarle un mensaje.\n";
+                    break;
                 } else {
                     int resta = 0;
                     for (int i = 0; i < cantidadRegistrados; i++) {
@@ -228,19 +238,31 @@ void ingreso() {
                     cout << "Ingresa el mensaje que deseas enviar: ";
                     cin >> mensaje;
                     
-                    ((Persona*) registrados.at(receptor))->recibirMensaje(personaActual->getNombre(), mensaje);
-
+                    receptorActual = ((Persona*) registrados.at(receptor));
+                    
+                    mensaje = encriptado(mensaje,receptorActual->getLlave(),true);
+                    
+                    receptorActual->recibirMensaje(personaActual->getNombre(), mensaje);
+                    cout << "El mensaje ha sido codificado y enviado.\n";
+                    receptorActual = NULL;
+                    
                 }
 
                 break;
             }
             case 2:
             {
+                cout << "### VER MENSAJES ###\n\n";
+                
+                personaActual->imprimirMensajes();
+                
                 break;
             }
-            case 3:
+            case 3: 
             {
-                
+                cout << "### VER MI LLAVE ###\n\n";
+                cout << personaActual->getNombre() << ", tu llave es ";
+                cout << receptorActual->getLlave() << ".\n";
                 break;
             }
             case 0:
@@ -253,4 +275,30 @@ void ingreso() {
 
     }
 
+}
+
+/* Encripta una cadena de acuerdo a una llave
+ */
+string encriptado(string mensaje, int llave, bool codificar){
+    //Caso base
+    if(llave == 0){
+        return mensaje;
+    }
+    
+    int caracteres = llave;
+    int adelante = codificar;
+    int factor = 1;
+    for (int i = 0; i < mensaje.size(); i++) {
+        factor = adelante ? 1 : -1 ;
+        
+        int valorAscii = ((int)mensaje[i]) + (factor * llave);
+        mensaje = mensaje.substr(0,i) + ((char)valorAscii) + mensaje.substr(i+1);
+        caracteres--;
+        
+        if(caracteres == 0){
+            adelante = !adelante;
+            caracteres = llave;
+        }
+    }
+    return encriptado(mensaje,llave-1,codificar);
 }
